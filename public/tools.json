@@ -1,0 +1,50 @@
+[
+    {
+        "name" : "Wire strippers",
+        "img" : "https://i.ibb.co/pwprjhs/01.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 15,
+        "availablequan" : 569,
+        "price" : 8.99
+    },
+    {
+        "name" : "Insulated screwdrivers",
+        "img" : "https://i.ibb.co/2WHW0mN/02.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 12,
+        "availablequan" : 469,
+        "price" : 9.59
+    },
+    {
+        "name" : "Insulated pliers",
+        "img" : "https://i.ibb.co/VBVsgJq/03.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 13,
+        "availablequan" : 567,
+        "price" : 10.99
+    },
+    {
+        "name" : "Electrical tape",
+        "img" : "https://i.ibb.co/DYXhQ5q/04.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 50,
+        "availablequan" : 1010,
+        "price" : 1.99
+    },
+    {
+        "name" : "Hacksaws",
+        "img" : "https://i.ibb.co/j6sbRvq/05.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 17,
+        "availablequan" : 589,
+        "price" : 9.99
+    },
+    {
+        "name" : "Cable cutters",
+        "img" : "https://i.ibb.co/kDLqGWv/06.jpg",
+        "desc" : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, libero.",
+        "minordquan" : 14,
+        "availablequan" : 669,
+        "price" : 11.39
+    }
+]
