@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import auth from '../../firebase.init';
-import Loader from '../Loader';
 import { toast } from 'react-toastify';
 
 const Purchase = () => {
     const [user] = useAuthState(auth);
     const { id } = useParams();
-    // const { isLoading, data } = useQuery('tool', () => fetch(`http://localhost:5000/tools/${id}`)
-    //     .then(res => res.json()
-    //     ))
-
-
-    // if (isLoading) {
-    //     return <Loader></Loader>
-    // }
 
     const [tool, setTool] = useState({});
     const [quan, setQuan] = useState(0);
@@ -67,6 +57,17 @@ const Purchase = () => {
         e.target.reset();
     }
 
+    const handleQuanDec = () => {
+        setQuan(quan - 1);
+        if (quan <= minordquan) {
+
+        }
+    }
+
+    const handleQuanInc = () => {
+        setQuan(quan + 1);
+    }
+
 
 
     return (
@@ -96,18 +97,18 @@ const Purchase = () => {
                             <input className='w-full input input-bordered px-2 py-3' type="text" name="availableQuan" id="availableQuan" value={availablequan} disabled />
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <label className='label' htmlFor="minOrdQuan">Minimum Order Quantity</label>
                         <div>
                             <input className='w-full input input-bordered px-2 py-2' value={minordquan} disabled type="text" name="minOrdQuan" id="minOrdQuan" />
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <label className='label' htmlFor="quantity">Quantity</label>
-                        <div>
-                            <button onClick={() => { setQuan(quan - 1) }}>Increment</button>
-                            <button onClick={() => { setQuan(quan + 1) }}>Decrement</button>
-                            <input className='w-full input input-bordered px-2 py-3' type="number" name="quantity" id="quantity" value={quan} />
+                        <div className='flex'>
+                            <button id='btn-dec' className='btn btn-secondary' onClick={handleQuanDec}>-</button>
+                            <input className='w-3/6 input input-bordered px-2 py-3 text-center' type="number" name="quantity" id="quantity" value={quan} />
+                            <button className='btn btn-secondary' onClick={handleQuanInc}>+</button>
                         </div>
                     </div>
                     <div>

@@ -39,6 +39,9 @@ const Header = () => {
                     {navItem}
                 </ul>
             </div>
+            <div className='navbar-end md:hidden'>
+                <label htmlFor="my-drawer-2" className="btn btn-secondary text-accent drawer-button lg:hidden">Dashboard</label>
+            </div>
         </div>
     );
 };
