@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init'
-import { sendPasswordResetEmail } from 'firebase/auth';
+import Loader from './Loader';
 
 
 const Login = () => {
@@ -20,7 +20,6 @@ const Login = () => {
     const navigate = useNavigate();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const emailRef = useRef();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
@@ -36,7 +35,7 @@ const Login = () => {
     }
 
     if (loading || gLoading || sending) {
-        return <button className='btn loading'>Loading</button>
+        return <Loader></Loader>
     }
 
     const onSubmit = data => {
@@ -70,7 +69,7 @@ const Login = () => {
                                     value: /[A-Za-z]{3}/,
                                     message: 'Provide a valid email'
                                 }
-                            })} type="email" ref={emailRef} placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
+                            })} type="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs" />
                             <label className="label">
                                 {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
                                 {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}

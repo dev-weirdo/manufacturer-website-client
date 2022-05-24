@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import Loader from '../Loader';
 import Tool from './Tool';
 
 const Tools = () => {
@@ -10,7 +11,7 @@ const Tools = () => {
     )
 
     if (isLoading) {
-        return <button className="btn loading">Loading</button>;
+        return <Loader></Loader>;
     }
 
     return (

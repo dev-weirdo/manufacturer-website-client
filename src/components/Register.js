@@ -3,6 +3,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
+import Loader from './Loader';
 
 const Register = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -31,7 +32,7 @@ const Register = () => {
     }
 
     if (loading || gLoading || updating) {
-        return <button className='btn loading'>Loading</button>
+        return <Loader></Loader>
     }
 
     const onSubmit = async data => {
@@ -105,7 +106,7 @@ const Register = () => {
                         <p className='mb-2 text-center text-lg'><small>
                             Already have an account? <Link to="/login" className='text-blue-400 font-semibold'>Please Login</Link></small></p>
 
-                        <input className='btn btn-accent sm:btn-sm md:btn-md hover:bg-transparent hover:text-accent w-full max-w-xs' type="submit" value="Signup" />
+                        <input className='btn btn-secondary sm:btn-sm md:btn-md hover:bg-transparent hover:text-secondary w-full max-w-xs' type="submit" value="Signup" />
                     </form>
 
                     <div className="divider">OR</div>

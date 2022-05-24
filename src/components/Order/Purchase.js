@@ -1,25 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import auth from '../../firebase.init';
+import Loader from '../Loader';
+import { toast } from 'react-toastify';
 
 const Purchase = () => {
+    const [user] = useAuthState(auth);
     const { id } = useParams();
-    const { isLoading, data } = useQuery('tool', () => fetch(`http://localhost:5000/tools/${id}`)
-        .then(res => res.json()
-        ))
+    // const { isLoading, data } = useQuery('tool', () => fetch(`http://localhost:5000/tools/${id}`)
+    //     .then(res => res.json()
+    //     ))
 
 
-    if (isLoading) {
-        return <button className='btn loading text-center'>Loading</button>
-    }
-    const { name, img, desc, availablequan, minordquan } = data;
+    // if (isLoading) {
+    //     return <Loader></Loader>
+    // }
+
+    const [tool, setTool] = useState({});
+    const [quan, setQuan] = useState(0);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/tools/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setTool(data);
+                setQuan(data.minordquan);
+            })
+    }, [id])
+
+    const { name, img, desc, availablequan, minordquan } = tool;
 
     const handleOrder = (e) => {
         e.preventDefault();
 
-        const email =
+        const email = user?.email;
+        const userName = user?.displayName;
+        const toolName = name;
+        const quantity = e.target.quantity.value;
+        const address = e.target.address.value;
+        const phone = e.target.phone.value;
 
-            fetch('http://localhost:5000/orders')
+        const order = { email, userName, toolName, quantity, address, phone };
+
+        if (quantity < minordquan) {
+            return toast.warn(`Order quantity should be equal or greater than ${minordquan}`)
+        }
+        else if (quantity > availablequan) {
+            return toast.warn(`Order quantity should be equal or less than ${availablequan}`)
+        }
+        fetch('http://localhost:5000/orders', {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(order)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Order Placed!')
+                }
+            })
+
+        e.target.reset();
     }
 
 
@@ -36,31 +81,45 @@ const Purchase = () => {
                     <div>
                         <label className='label' htmlFor="name">Name</label>
                         <div>
-                            <input className='w-full input input-bordered px-1 py-2' type="text" name="name" id="name" />
+                            <input className='w-full input input-bordered px-2 py-3' type="text" name="name" id="name" disabled value={user?.displayName} />
                         </div>
                     </div>
                     <div>
                         <label className='label' htmlFor="email">Email</label>
                         <div>
-                            <input className='w-full input input-bordered px-1 py-2' type="email" name="email" id="email" />
+                            <input className='w-full input input-bordered px-2 py-3' type="email" name="email" disabled id="email" value={user?.email} />
                         </div>
                     </div>
                     <div>
                         <label className='label' htmlFor="availableQuan">Available Quantity</label>
                         <div>
-                            <input className='w-full input input-bordered px-1 py-2' type="text" name="availableQuan" id="availableQuan" value={availablequan} disabled />
+                            <input className='w-full input input-bordered px-2 py-3' type="text" name="availableQuan" id="availableQuan" value={availablequan} disabled />
                         </div>
                     </div>
                     <div>
                         <label className='label' htmlFor="minOrdQuan">Minimum Order Quantity</label>
                         <div>
-                            <input className='w-full input input-bordered px-1 py-2' value={minordquan} disabled type="text" name="minOrdQuan" id="minOrdQuan" />
+                            <input className='w-full input input-bordered px-2 py-2' value={minordquan} disabled type="text" name="minOrdQuan" id="minOrdQuan" />
                         </div>
                     </div>
                     <div>
                         <label className='label' htmlFor="quantity">Quantity</label>
                         <div>
-                            <input className='w-full input input-bordered px-1 py-2' type="text" name="quantity" id="quantity" />
+                            <button onClick={() => { setQuan(quan - 1) }}>Increment</button>
+                            <button onClick={() => { setQuan(quan + 1) }}>Decrement</button>
+                            <input className='w-full input input-bordered px-2 py-3' type="number" name="quantity" id="quantity" value={quan} />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="address">Address</label>
+                        <div>
+                            <input className='w-full input input-bordered px-2 py-3' type="text" name="address" id="address" required />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="phone">Phone</label>
+                        <div>
+                            <input className='w-full input input-bordered px-2 py-3' type="tel" name="phone" id="phone" placeholder='+8801234567891' required />
                         </div>
                     </div>
                     <button type='submit' className="btn btn-secondary text-accent sm:btn-sm md:btn-md hover:bg-transparent hover:text-secondary w-full my-5">Order</button>
