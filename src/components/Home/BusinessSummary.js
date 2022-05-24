@@ -34,10 +34,10 @@ const BusinessSummary = () => {
                 {
                     summary.map((sum, index) =>
                         <div key={index} className="card w-full md:w-96 mx-auto">
-                            <figure class="px-10 pt-10">
-                                <img src={sum.img} alt="Shoes" class="rounded-xl" />
+                            <figure className="px-10 pt-10">
+                                <img src={sum.img} alt="Shoes" className="rounded-xl" />
                             </figure>
-                            <div class="card-body items-center text-center">
+                            <div className="card-body items-center text-center">
                                 <p className='text-4xl'>{sum.numbers}+</p>
                                 <h2 className="card-title text-4xl">{sum.name}</h2>
                             </div>

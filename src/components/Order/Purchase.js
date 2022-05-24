@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 const Purchase = () => {
-    const [quan, setQuan] = useState(0);
     const { id } = useParams();
     const { isLoading, data } = useQuery('tool', () => fetch(`http://localhost:5000/tools/${id}`)
         .then(res => res.json()
@@ -18,20 +17,45 @@ const Purchase = () => {
 
     return (
         <div className="hero min-h-screen bg-base-100 text-neutral">
-            <div className="hero-content flex-col lg:flex-row">
-                <img src={img} className="max-w-sm rounded-lg shadow-2xl" alt={name}></img>
-                <div>
-                    <h1 className="text-5xl font-bold">{name}</h1>
-                    <p className="py-6">{desc}</p>
-                    <p>Available Quantity: {availablequan} Pcs</p>
-                    <div className='flex items-center'>
-                        <label htmlFor="orderquan">Quantity</label>
-                        <div className='ml-3'>
-                            <input className='bg-slate-400 px-1 py-2' type="text" name="orderquab" id="orderquan" onChange={(e) => setQuan(e.target.orderquan.value)} value={quan} />
+            <div className="hero-content flex-col lg:flex-row md:w-3/6">
+                <div className='w-full'>
+                    <p className='my-5 text-4xl text-center'>{name}</p>
+                    <img src={img} className="mx-auto w-full md:max-w-sm rounded-lg shadow-2xl" alt={name}></img>
+                    <p className='mt-5 text-xl text-center'>{desc}</p>
+                </div>
+                <form className='w-full'>
+                    <div>
+                        <label className='label' htmlFor="name">Name</label>
+                        <div>
+                            <input className='w-full input input-bordered px-1 py-2' type="text" name="name" id="name" />
                         </div>
                     </div>
-                    <button className="btn btn-secondary text-accent">Get Started</button>
-                </div>
+                    <div>
+                        <label className='label' htmlFor="email">Email</label>
+                        <div>
+                            <input className='w-full input input-bordered px-1 py-2' type="email" name="email" id="email" />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="availableQuan">Available Quantity</label>
+                        <div>
+                            <input className='w-full input input-bordered px-1 py-2' type="text" name="availableQuan" id="availableQuan" value={availablequan} disabled />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="minOrdQuan">Minimum Order Quantity</label>
+                        <div>
+                            <input className='w-full input input-bordered px-1 py-2' value={minordquan} disabled type="text" name="minOrdQuan" id="minOrdQuan" />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="quantity">Quantity</label>
+                        <div>
+                            <input className='w-full input input-bordered px-1 py-2' type="text" name="quantity" id="quantity" />
+                        </div>
+                    </div>
+                    <button type='submit' className="btn btn-secondary text-accent sm:btn-sm md:btn-md hover:bg-transparent hover:text-secondary w-full my-5">Order</button>
+                </form>
             </div>
         </div>
     );
