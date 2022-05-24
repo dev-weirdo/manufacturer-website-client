@@ -16,7 +16,7 @@ const Tools = () => {
     return (
         <div className='w-full my-8'>
             <div className='text-center'>
-                <p className='text-5xl text-white my-7'>Available Tools</p>
+                <p className='text-3xl md:text-5xl text-white my-7'>Available Tools</p>
             </div>
             <div className='mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
