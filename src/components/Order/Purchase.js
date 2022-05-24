@@ -14,6 +14,15 @@ const Purchase = () => {
     }
     const { name, img, desc, availablequan, minordquan } = data;
 
+    const handleOrder = (e) => {
+        e.preventDefault();
+
+        const email =
+
+            fetch('http://localhost:5000/orders')
+    }
+
+
 
     return (
         <div className="hero min-h-screen bg-base-100 text-neutral">
@@ -23,7 +32,7 @@ const Purchase = () => {
                     <img src={img} className="mx-auto w-full md:max-w-sm rounded-lg shadow-2xl" alt={name}></img>
                     <p className='mt-5 text-xl text-center'>{desc}</p>
                 </div>
-                <form className='w-full'>
+                <form onSubmit={handleOrder} className='w-full'>
                     <div>
                         <label className='label' htmlFor="name">Name</label>
                         <div>
