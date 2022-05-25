@@ -12,6 +12,10 @@ const MyOrders = () => {
             .then(res => res.json())
             .then(data => setOrders(data));
     }, [user])
+
+
+    const handleOrderDelete = (id) =>
+
     return (
         <div>
             {
@@ -20,9 +24,11 @@ const MyOrders = () => {
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Name</th>
                                 <th>Tool</th>
                                 <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                                <th>Payment</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,9 +36,11 @@ const MyOrders = () => {
                                 orders.map((order, index) =>
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{order.userName}</td>
                                         <td>{order.toolName}</td>
                                         <td>{order.quantity}</td>
+                                        <td>{order.totalPrice}</td>
+                                        <td><button onClick={handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td>
+                                        <td><button className='btn btn-success'>PAY</button></td>
                                     </tr>
                                 )
                             }
@@ -42,6 +50,6 @@ const MyOrders = () => {
             }
         </div>
     );
-};
+    };
 
-export default MyOrders;
+    export default MyOrders;

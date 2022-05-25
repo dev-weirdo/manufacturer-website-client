@@ -20,7 +20,6 @@ const Header = () => {
                 {user ? <button onClick={handleSignOut}>Logout</button> : <Link to='/login'>Login</Link>}
             </li>
         </>
-
     return (
         <div className="md:px-10 navbar bg-base-100 text-neutral">
             <div className="navbar-start">
