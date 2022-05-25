@@ -20,7 +20,9 @@ const Purchase = () => {
             })
     }, [id])
 
-    const { name, img, desc, availablequan, minordquan } = tool;
+
+    const { name, img, desc, availablequan, minordquan, price } = tool;
+    const totalPrice = (quan * price).toFixed(2);
 
     const handleOrder = (e) => {
         e.preventDefault();
@@ -32,7 +34,7 @@ const Purchase = () => {
         const address = e.target.address.value;
         const phone = e.target.phone.value;
 
-        const order = { email, userName, toolName, quantity, address, phone };
+        const order = { email, userName, toolName, quantity, address, phone, totalPrice };
 
         if (quantity < minordquan) {
             return toast.warn(`Order quantity should be equal or greater than ${minordquan}`)
@@ -107,8 +109,14 @@ const Purchase = () => {
                         <label className='label' htmlFor="quantity">Quantity</label>
                         <div className='flex'>
                             <button id='btn-dec' className='btn btn-secondary' onClick={handleQuanDec}>-</button>
-                            <input className='w-3/6 input input-bordered px-2 py-3 text-center' type="number" name="quantity" id="quantity" value={quan} />
+                            <input className='w-3/6 input input-bordered px-2 py-3 text-center' type="number" name="quantity" id="quantity" value={quan} disabled />
                             <button className='btn btn-secondary' onClick={handleQuanInc}>+</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label className='label' htmlFor="price">Total Price: (${price}/PP)</label>
+                        <div>
+                            <input className='w-full input input-bordered px-2 py-3' type="number" name="price" id="price" disabled value={`${totalPrice}`} />
                         </div>
                     </div>
                     <div>
