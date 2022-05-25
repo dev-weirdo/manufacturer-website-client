@@ -10,6 +10,7 @@ const Purchase = () => {
 
     const [tool, setTool] = useState({});
     const [quan, setQuan] = useState(0);
+    // const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:5000/tools/${id}`)
@@ -61,9 +62,6 @@ const Purchase = () => {
 
     const handleQuanDec = () => {
         setQuan(quan - 1);
-        if (quan <= minordquan) {
-
-        }
     }
 
     const handleQuanInc = () => {
@@ -108,9 +106,9 @@ const Purchase = () => {
                     <div>
                         <label className='label' htmlFor="quantity">Quantity</label>
                         <div className='flex'>
-                            <button id='btn-dec' className='btn btn-secondary' onClick={handleQuanDec}>-</button>
+                            <button disabled={quan === minordquan ? true : false} className='btn btn-secondary' onClick={handleQuanDec}>-</button>
                             <input className='w-3/6 input input-bordered px-2 py-3 text-center' type="number" name="quantity" id="quantity" value={quan} disabled />
-                            <button className='btn btn-secondary' onClick={handleQuanInc}>+</button>
+                            <button disabled={quan === availablequan ? true : false} className='btn btn-secondary' onClick={handleQuanInc}>+</button>
                         </div>
                     </div>
                     <div>
