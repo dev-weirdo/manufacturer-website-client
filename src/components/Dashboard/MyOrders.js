@@ -15,6 +15,7 @@ const MyOrders = () => {
 
 
     const handleOrderDelete = (id) => {
+        console.log(id);
         fetch(`http://localhost:5000/orders/${id}`, {
             method: 'DELETE'
         })
@@ -63,7 +64,7 @@ const MyOrders = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        {/* <td><button onClick={handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td> */}
+                                        {/* <td><button onClick={() => handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td> */}
                                         <td> <button className='btn btn-success'>PAY</button></td>
                                     </tr>
                                 )
