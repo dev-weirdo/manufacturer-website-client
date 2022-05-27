@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { UserCircleIcon } from '@heroicons/react/solid'
 
 const Header = () => {
 
@@ -16,9 +17,16 @@ const Header = () => {
         <>
             <li><Link to='/dashboard'>Dashboard</Link></li>
             <li><Link to='/blog'>Blog</Link></li>
-            <li>
-                {user ? <button onClick={handleSignOut}>Logout</button> : <Link to='/login'>Login</Link>}
-            </li>
+            {user ?
+                <div className="dropdown dropdown-end">
+                    <label tabIndex="0" className="btn btn-ghost outline-none m-1"><UserCircleIcon className='w-10'></UserCircleIcon></label>
+                    <ul tabIndex="0" className="dropdown-content mt-3 menu p-2 shadow bg-base-100 rounded-box w-56">
+                        <li><p className='font-bold'>{user?.displayName}</p></li>
+                        <li><button className='btn btn-secondary text-accent mx-auto' onClick={handleSignOut}>Logout</button></li>
+                    </ul>
+                </div>
+                :
+                <li><Link to='/login'>Login</Link></li>}
         </>
     return (
         <div className="md:px-10 navbar bg-base-100 text-neutral">

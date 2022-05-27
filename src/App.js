@@ -12,6 +12,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import MyProfile from "./components/Dashboard/MyProfile";
 import MyOrders from "./components/Dashboard/MyOrders";
 import AddReview from "./components/Dashboard/AddReview";
+import Notfound from "./components/Notfound";
+import Users from "./components/Dashboard/Users";
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
           <Route index element={<MyProfile></MyProfile>}></Route>
           <Route path="myorders" element={<MyOrders></MyOrders>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
+          <Route path="users" element={<Users></Users>}></Route>
         </Route>
+        <Route path="*" element={<Notfound></Notfound>}></Route>
       </Routes>
       <Footer></Footer>
       <ToastContainer></ToastContainer>

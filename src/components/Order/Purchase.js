@@ -10,7 +10,6 @@ const Purchase = () => {
 
     const [tool, setTool] = useState({});
     const [quan, setQuan] = useState(0);
-    // const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:5000/tools/${id}`)

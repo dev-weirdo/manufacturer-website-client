@@ -4,6 +4,7 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init'
 import Loader from './Loader';
+import useToken from '../hooks/useToken';
 
 
 const Login = () => {
@@ -23,11 +24,13 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
+    const [token] = useToken(user || gUser);
+
     useEffect(() => {
-        if (user || gUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, gUser, navigate, from])
+    }, [navigate, from, token])
 
     let signInError;
     if (error || gError) {
