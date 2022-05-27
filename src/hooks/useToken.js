@@ -5,14 +5,15 @@ const useToken = (user) => {
 
     useEffect(() => {
         const email = user?.user?.email;
-        const userEmail = { email: email };
+
+        const userInfo = { email: email };
         if (email) {
             fetch(`http://localhost:5000/users/${email}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(userEmail)
+                body: JSON.stringify(userInfo)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -22,7 +23,6 @@ const useToken = (user) => {
                 })
         }
     }, [user])
-    // console.log(token)
     return [token];
 }
 export default useToken;

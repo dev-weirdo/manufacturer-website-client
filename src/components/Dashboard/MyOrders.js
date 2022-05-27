@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const MyOrders = () => {
@@ -22,17 +23,19 @@ const MyOrders = () => {
 
 
     const handleOrderDelete = (id) => {
-        console.log(id);
-        fetch(`http://localhost:5000/orders/${id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json)
-            .then(data => {
-                if (data.deleteCount > 0) {
-                    const remaining = orders.filter(order => order._id !== id);
-                    setOrders(remaining);
-                }
+        const confirm = window.confirm('Are you sure?');
+        if (confirm) {
+            fetch(`http://localhost:5000/orders/${id}`, {
+                method: 'DELETE'
             })
+                .then(res => res.json)
+                .then(data => {
+                    if (data.deleteCount > 0) {
+                        const remaining = orders.filter(order => order._id !== id);
+                        setOrders(remaining);
+                    }
+                })
+        }
     }
 
     return (
@@ -58,21 +61,8 @@ const MyOrders = () => {
                                         <td>{order.toolName}</td>
                                         <td>{order.quantity}</td>
                                         <td>${order.totalPrice}</td>
-                                        <td>
-                                            <label htmlFor="my-modal" className="btn modal-button btn-error">DELETE</label>
-                                            <input type="checkbox" id="my-modal" className="modal-toggle" />
-                                            <div className="modal">
-                                                <div className="modal-box max-w-sm px-0 py-7">
-                                                    <h3 className="font-bold text-lg text-center">Are you sure?</h3>
-                                                    <div className="modal-action flex justify-evenly">
-                                                        <label htmlFor="my-modal" className="btn btn-secondary">Cancel</label>
-                                                        <label onClick={() => handleOrderDelete(order._id)} htmlFor="my-modal" className="btn btn-warning">Yes</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        {/* <td><button onClick={() => handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td> */}
-                                        <td> <button className='btn btn-success'>PAY</button></td>
+                                        <td><button onClick={() => handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td>
+                                        <td>{<Link className='btn btn-success btn-xl text-accent' to={`/dashboard/payment/${order._id}`}>PAY</Link>}</td>
                                     </tr>
                                 )
                             }

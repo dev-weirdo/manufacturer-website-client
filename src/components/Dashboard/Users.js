@@ -1,27 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Users = () => {
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users',
+            {
+                method: 'GET',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => setUsers(data))
+    })
+
+    const makeAdmin = (email) => {
+        fetch(`http://localhost:5000/users/admin/${email}`,
+            {
+                method: 'PUT',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+            .then(res => {
+                if (res.status === 403) {
+                    toast.error('You are not allowed to make an admin')
+                }
+            })
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`User ${email} is now an admin`)
+                }
+            })
+    }
+
     return (
         <div>
             <h1 className='text-3xl text-center text-white my-8'>Users</h1>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th>NO.</th>
-                            <th>Name</th>
                             <th>Email</th>
-                            <th></th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="hover">
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                        </tr>
+                        {
+                            users.map((user, index) =>
+                                <tr key={user._id} className="hover">
+                                    <th>{index + 1}</th>
+                                    <td>{user.email}</td>
+                                    <td>{user.role !== 'admin' && <button onClick={() => makeAdmin(user.email)} className='btn btn-secondary btn-xl text-accent'>Make Admin</button>}</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </table>
             </div>
