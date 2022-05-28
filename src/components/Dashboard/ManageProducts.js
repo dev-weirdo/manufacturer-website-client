@@ -6,7 +6,7 @@ const ManageProducts = () => {
     const [tools, setTools] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/tools')
+        fetch('https://radiant-castle-94572.herokuapp.com/tools')
             .then(res => res.json())
             .then(data => setTools(data))
     }, [tools])
@@ -14,7 +14,7 @@ const ManageProducts = () => {
     const handleProductDelete = (id) => {
         const agree = window.confirm('Are you sure?');
         if (agree) {
-            fetch(`http://localhost:5000/tools/${id}`, {
+            fetch(`https://radiant-castle-94572.herokuapp.com/tools/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`

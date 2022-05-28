@@ -5,7 +5,7 @@ import Loader from '../Loader';
 
 const ManageAllOrders = () => {
     const { data: orders, isLoading, refetch } = useQuery('orders', () =>
-        fetch('http://localhost:5000/allorders', {
+        fetch('https://radiant-castle-94572.herokuapp.com/allorders', {
             method: 'GET',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -21,7 +21,7 @@ const ManageAllOrders = () => {
     const handleAdminDeleteOrder = (id) => {
         const proceed = window.confirm('Are you sure?');
         if (proceed) {
-            fetch(`http://localhost:5000/allorders/${id}`, {
+            fetch(`https://radiant-castle-94572.herokuapp.com/allorders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -38,7 +38,7 @@ const ManageAllOrders = () => {
 
     }
     const handleShipment = (id) => {
-        fetch(`http://localhost:5000/allorders/${id}`, {
+        fetch(`https://radiant-castle-94572.herokuapp.com/allorders/${id}`, {
             method: 'PUT',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`

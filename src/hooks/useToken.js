@@ -8,7 +8,7 @@ const useToken = (user) => {
 
         const userInfo = { email: email };
         if (email) {
-            fetch(`http://localhost:5000/users/${email}`, {
+            fetch(`https://radiant-castle-94572.herokuapp.com/users/${email}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'

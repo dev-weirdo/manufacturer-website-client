@@ -13,7 +13,7 @@ const CheckoutForm = ({ order, setProcessing }) => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent',
+        fetch('https://radiant-castle-94572.herokuapp.com/create-payment-intent',
             {
                 method: 'POST',
                 headers: {
@@ -79,7 +79,7 @@ const CheckoutForm = ({ order, setProcessing }) => {
                 txId: paymentIntent.id
             }
 
-            fetch(`http://localhost:5000/orders/${_id}`, {
+            fetch(`https://radiant-castle-94572.herokuapp.com/orders/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

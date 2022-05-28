@@ -6,7 +6,7 @@ import Tool from './Tool';
 const Tools = () => {
 
     const { isLoading, data } = useQuery('tools', () =>
-        fetch('http://localhost:5000/tools')
+        fetch('https://radiant-castle-94572.herokuapp.com/tools')
             .then(res => res.json())
     )
 

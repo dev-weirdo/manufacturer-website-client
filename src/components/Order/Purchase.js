@@ -12,7 +12,7 @@ const Purchase = () => {
     const [quan, setQuan] = useState(0);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/tools/${id}`)
+        fetch(`https://radiant-castle-94572.herokuapp.com/tools/${id}`)
             .then(res => res.json())
             .then(data => {
                 setTool(data);
@@ -42,7 +42,7 @@ const Purchase = () => {
         else if (quantity > availablequan) {
             return toast.warn(`Order quantity should be equal or less than ${availablequan}`)
         }
-        fetch('http://localhost:5000/orders', {
+        fetch('https://radiant-castle-94572.herokuapp.com/orders', {
             method: 'POST',
             headers: {
                 "content-type": "application/json",

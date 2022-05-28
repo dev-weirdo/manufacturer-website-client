@@ -10,7 +10,7 @@ const MyOrders = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`,
+        fetch(`https://radiant-castle-94572.herokuapp.com/orders?email=${user?.email}`,
             {
                 method: 'GET',
                 headers: {
@@ -26,7 +26,7 @@ const MyOrders = () => {
     const handleOrderDelete = (id) => {
         const confirm = window.confirm('Are you sure?');
         if (confirm) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://radiant-castle-94572.herokuapp.com/orders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`

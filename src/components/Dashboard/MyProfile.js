@@ -9,7 +9,7 @@ import Loader from '../Loader';
 const MyProfile = () => {
     const [user] = useAuthState(auth)
     const { data: profile, isLoading, refetch } = useQuery('profile', () =>
-        fetch(`http://localhost:5000/profile?email=${user.email}`,
+        fetch(`https://radiant-castle-94572.herokuapp.com/profile?email=${user.email}`,
             {
                 method: 'GET',
                 headers: {
@@ -37,7 +37,7 @@ const MyProfile = () => {
 
         const updateProfile = { education, city, district, phone };
 
-        fetch(`http://localhost:5000/profile/${email}`, {
+        fetch(`https://radiant-castle-94572.herokuapp.com/profile/${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

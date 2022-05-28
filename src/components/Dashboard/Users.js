@@ -6,7 +6,7 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users',
+        fetch('https://radiant-castle-94572.herokuapp.com/users',
             {
                 method: 'GET',
                 headers: {
@@ -18,7 +18,7 @@ const Users = () => {
     })
 
     const makeAdmin = (email) => {
-        fetch(`http://localhost:5000/users/admin/${email}`,
+        fetch(`https://radiant-castle-94572.herokuapp.com/users/admin/${email}`,
             {
                 method: 'PUT',
                 headers: {

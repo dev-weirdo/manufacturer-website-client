@@ -9,7 +9,7 @@ const stripePromise = loadStripe('pk_test_51L4FpQBm1q4c8l9Pz22F1UOLXFmEW9wTMM6P7
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/orders/${id}`;
+    const url = `https://radiant-castle-94572.herokuapp.com/orders/${id}`;
 
     const { data, isLoading } = useQuery(['order', id], () => fetch(url, {
         method: 'GET',
