@@ -20,6 +20,7 @@ import Payment from "./components/Dashboard/Payment";
 import AddAProduct from "./components/Dashboard/AddAProduct";
 import ManageAllOrders from "./components/Dashboard/ManageAllOrders";
 import ManageProducts from "./components/Dashboard/ManageProducts";
+import Portfolio from "./components/Portfolio";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           </RequireAuth>
         }></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
+        <Route path="/portfolio" element={<Portfolio></Portfolio>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/dashboard" element={

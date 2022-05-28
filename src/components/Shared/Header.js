@@ -20,11 +20,12 @@ const Header = () => {
                 user && <li><Link to='/dashboard'>Dashboard</Link></li>
             }
             <li><Link to='/blog'>Blog</Link></li>
+            <li><Link to='/portfolio'>Portfolio</Link></li>
             {user ?
                 <div className="dropdown dropdown-end">
                     <label tabIndex="0" className="btn btn-ghost outline-none m-1"><UserCircleIcon className='w-10'></UserCircleIcon></label>
                     <ul tabIndex="0" className="dropdown-content mt-3 menu p-2 shadow bg-base-100 rounded-box w-56">
-                        <li><p className='font-bold'>{user.displayName}</p></li>
+                        <li><p className='font-bold'>{user?.displayName}</p></li>
                         <li><button className='btn btn-secondary text-accent mx-auto' onClick={handleSignOut}>Logout</button></li>
                     </ul>
                 </div>
@@ -49,9 +50,13 @@ const Header = () => {
                     {navItem}
                 </ul>
             </div>
-            <div className='navbar-end md:hidden'>
-                <label htmlFor="my-drawer-2" className="btn btn-secondary text-accent drawer-button lg:hidden">Dashboard</label>
-            </div>
+            <>
+                {
+                    user && <div className='navbar-end md:hidden'>
+                        <label htmlFor="my-drawer-2" className="btn btn-secondary text-accent drawer-button lg:hidden">Dashboard</label>
+                    </div>
+                }
+            </>
         </div>
     );
 };
