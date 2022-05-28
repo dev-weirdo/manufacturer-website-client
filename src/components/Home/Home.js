@@ -1,5 +1,6 @@
 import React from 'react';
 import Feedback from '../Feedback';
+import Subscribe from '../Subscribe';
 import BusinessSummary from './BusinessSummary';
 import Hero from './Hero';
 import Reviews from './Reviews';
@@ -11,6 +12,7 @@ const Home = () => {
             <Hero></Hero>
             <Tools></Tools>
             <BusinessSummary></BusinessSummary>
+            <Subscribe></Subscribe>
             <Reviews></Reviews>
             <Feedback></Feedback>
         </div>

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init'
 import Loader from './Loader';
 import useToken from '../hooks/useToken';
-
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -17,6 +17,7 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
+    const [remail, setRemail] = useState('');
 
     const navigate = useNavigate();
 
@@ -45,7 +46,13 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password)
     };
 
-    const handleResetPassword = () => {
+    const handleResetPassword = async (data) => {
+        console.log(data.email);
+
+        if (remail) {
+            // await sendPasswordResetEmail(remail);
+            // toast('Email sent')
+        }
 
     };
 
@@ -63,7 +70,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email Address</span>
                             </label>
-                            <input {...register("email", {
+                            <input onChange={e => setRemail(e.target.value)} {...register("email", {
                                 required: {
                                     value: true,
                                     message: 'Email is required'
@@ -104,7 +111,7 @@ const Login = () => {
                         <p className='text-xl'><small>
                             New to ElecTools? <Link to="/register" className='text-blue-400 font-semibold'>Create an account</Link></small>
                         </p>
-                        <p onClick={handleResetPassword} className='mb-2 text-blue-400 text-lg cursor-pointer'>Forgot Password?</p>
+                        <Link to='/resetpassword'>Forgot Password?</Link>
 
                         <input className='btn btn-secondary sm:btn-sm md:btn-md hover:bg-transparent hover:text-secondary w-full max-w-xs' type="submit" value="Login" />
                     </form>
