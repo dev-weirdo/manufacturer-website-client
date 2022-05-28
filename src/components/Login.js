@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../firebase.init'
 import Loader from './Loader';
 import useToken from '../hooks/useToken';
-import { toast } from 'react-toastify';
 
 const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -15,9 +14,8 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
-    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
-    const [remail, setRemail] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -38,25 +36,13 @@ const Login = () => {
         signInError = <p className='text-red-500'>{error.message || gError.message}</p>
     }
 
-    if (loading || gLoading || sending) {
+    if (loading || gLoading) {
         return <Loader></Loader>
     }
 
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password)
     };
-
-    const handleResetPassword = async (data) => {
-        console.log(data.email);
-
-        if (remail) {
-            // await sendPasswordResetEmail(remail);
-            // toast('Email sent')
-        }
-
-    };
-
-
 
 
     return (
@@ -70,7 +56,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email Address</span>
                             </label>
-                            <input onChange={e => setRemail(e.target.value)} {...register("email", {
+                            <input {...register("email", {
                                 required: {
                                     value: true,
                                     message: 'Email is required'
