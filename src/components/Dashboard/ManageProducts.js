@@ -47,7 +47,7 @@ const ManageProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            tools.map((tool, inde) =>
+                            tools.map((tool) =>
                                 <tr key={tool?._id}>
                                     <td><img className='w-20 rounded-md' src={tool?.img} alt="" /></td>
                                     <td>{tool?.name}</td>
