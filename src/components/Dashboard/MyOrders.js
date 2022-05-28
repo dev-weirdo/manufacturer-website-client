@@ -13,7 +13,7 @@ const MyOrders = () => {
             {
                 method: 'GET',
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             }
         )
@@ -40,36 +40,39 @@ const MyOrders = () => {
 
     return (
         <div>
-            {
-                <div className="overflow-x-auto">
-                    <table className="table table-zebra w-full">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Tool</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Delete</th>
-                                <th>Payment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                orders.map((order, index) =>
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{order.toolName}</td>
-                                        <td>{order.quantity}</td>
-                                        <td>${order.totalPrice}</td>
-                                        <td><button onClick={() => handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button></td>
-                                        <td>{<Link className='btn btn-success btn-xl text-accent' to={`/dashboard/payment/${order._id}`}>PAY</Link>}</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div >
-            }
+            <div className="overflow-x-auto">
+                <table className="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tool</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Delete</th>
+                            <th>Payment</th>
+                            <th>TX ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            orders.map((order, index) =>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{order.toolName}</td>
+                                    <td>{order.quantity}</td>
+                                    <td>${order.totalPrice}</td>
+                                    <td>{!order?.paid && <button onClick={() => handleOrderDelete(order._id)} className='btn btn-error'>DELETE</button>}</td>
+                                    <td>{order?.paid ? <p className='text-lg text-green-500'>Paid</p>
+                                        :
+                                        <Link className='btn btn-success btn-xl text-accent' to={`/dashboard/payment/${order._id}`}>PAY</Link>
+                                    }</td>
+                                    <td>{order?.txId && <p className='text-lg text-green-500'>{order?.txId}</p>}</td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div >
         </div >
     );
 };

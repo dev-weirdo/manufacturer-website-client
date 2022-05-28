@@ -10,7 +10,7 @@ const Users = () => {
             {
                 method: 'GET',
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             })
             .then(res => res.json())
@@ -22,13 +22,14 @@ const Users = () => {
             {
                 method: 'PUT',
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             })
             .then(res => {
                 if (res.status === 403) {
                     toast.error('You are not allowed to make an admin')
                 }
+                return res.json();
             })
             .then(data => {
                 if (data.modifiedCount > 0) {

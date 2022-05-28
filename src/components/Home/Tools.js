@@ -21,7 +21,7 @@ const Tools = () => {
             </div>
             <div className='mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
-                    data.map(tool => <Tool tool={tool} key={tool._id}></Tool>)
+                    data.slice(0, 6).map(tool => <Tool tool={tool} key={tool._id}></Tool>)
                 }
             </div>
         </div>
