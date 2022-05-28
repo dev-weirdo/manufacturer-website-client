@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const MyOrders = () => {
@@ -26,11 +27,15 @@ const MyOrders = () => {
         const confirm = window.confirm('Are you sure?');
         if (confirm) {
             fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
             })
-                .then(res => res.json)
+                .then(res => res.json())
                 .then(data => {
-                    if (data.deleteCount > 0) {
+                    if (data.deletedCount > 0) {
+                        toast.success('Product deleted successfully')
                         const remaining = orders.filter(order => order._id !== id);
                         setOrders(remaining);
                     }
